@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第 12 週　把 12 週帶回家：結業與自我管理</title><style>
+:root{--navy:#172A45;--navy2:#24405F;--gold:#D2A02A;--goldd:#8A6A12;--brick:#A8322D;--teal:#1F6F5C;--ice:#E7EEF7;--ice2:#F3F7FC;--ink:#14202F;--muted:#3D4A5C;--green:#2E8B57;--yellow:#E6B422;--red:#C0392B;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0}
+#top{position:fixed;top:0;left:0;right:0;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;gap:14px;z-index:10}
+#top .eb{color:var(--gold);font-size:14px;letter-spacing:2px}
+#top .tt{font-size:22px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top a,#top button{background:var(--navy2);color:#fff;border-radius:10px;padding:8px 14px;font-size:16px;text-decoration:none}
+#stage{position:absolute;top:64px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
+#bar{position:fixed;bottom:0;left:0;right:0;height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 18px;z-index:10;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border-radius:14px;padding:14px 26px;font-size:22px;font-weight:700;box-shadow:0 3px 0 #0b1a2e}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.gold{background:var(--gold);color:var(--navy);box-shadow:0 3px 0 #9a7418}
+.btn.ghost{background:var(--ice);color:var(--navy);box-shadow:0 3px 0 #c3d0e0}
+.btn.brick{background:var(--brick);box-shadow:0 3px 0 #6d1f1b}
+.btn.teal{background:var(--teal);box-shadow:0 3px 0 #124236}
+.btn:disabled{opacity:.4}
+.big{font-size:clamp(40px,9vw,120px);font-weight:900;line-height:1.1;text-align:center}
+.huge{font-size:clamp(90px,30vw,420px);font-weight:900;line-height:1;text-align:center}
+.card{background:#fff;border:2px solid #D8E3F0;border-radius:22px;padding:28px 34px;max-width:1100px;width:100%}
+.card h2{color:var(--navy);font-size:clamp(28px,4vw,46px);margin-bottom:18px;line-height:1.3}
+.card p{font-size:clamp(20px,2.6vw,30px);line-height:1.6}
+.eyebrow{color:var(--goldd);letter-spacing:2px;font-size:18px;margin-bottom:8px}
+.opt{display:flex;align-items:center;gap:18px;background:var(--ice);border:3px solid transparent;border-radius:18px;padding:16px 22px;margin:12px 0;font-size:clamp(22px,3vw,36px);font-weight:700;color:var(--navy);width:100%;text-align:left;transition:.2s}
+.opt .k{background:var(--gold);color:var(--navy);width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:26px}
+.opt .v{margin-left:auto;background:#fff;border-radius:12px;padding:6px 14px;font-size:22px;min-width:64px;text-align:center;color:var(--muted)}
+.opt.win{background:#E3F1EC;border-color:var(--green);animation:pop .5s}
+.opt.lose{opacity:.45}
+.why{background:var(--gold);color:var(--navy);border-radius:18px;padding:18px 24px;font-size:clamp(20px,2.6vw,32px);font-weight:700;margin-top:18px;animation:rise .5s}
+.hidden{display:none!important}
+.step{display:flex;gap:18px;align-items:flex-start;margin:14px 0;font-size:clamp(20px,2.6vw,30px);line-height:1.5;opacity:0;transform:translateX(30px);transition:.4s}
+.step.show{opacity:1;transform:none}
+.step .n{background:var(--navy);color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none;font-size:24px}
+.tf{background:#fff;border:2px solid #D8E3F0;border-radius:18px;padding:18px 24px;margin:12px 0;display:flex;align-items:center;gap:18px;font-size:clamp(22px,3vw,36px);font-weight:700;color:var(--navy);width:100%;text-align:left}
+.tf .n{background:var(--gold);color:var(--navy);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:24px}
+.tf .ans{margin-left:auto;flex:none;width:96px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;background:#B7C4D6}
+.tf .ans.o{background:var(--green);animation:pop .5s}.tf .ans.x{background:var(--red);animation:pop .5s}
+.tf .ex{width:100%;font-size:clamp(18px,2.2vw,26px);font-weight:400;color:var(--muted);margin-top:8px;padding-left:66px}
+.tf.done{flex-wrap:wrap}
+.pill{display:inline-block;background:var(--ice);color:var(--navy);border-radius:999px;padding:8px 18px;font-size:18px;margin:6px 6px 0 0}
+.timer{font-size:clamp(60px,12vw,160px);font-weight:900;color:var(--navy);text-align:center;font-variant-numeric:tabular-nums}
+.ctl{display:flex;align-items:center;gap:8px;font-size:18px;color:var(--navy)}
+.ctl input[type=range]{width:140px}
+.dots{display:flex;gap:8px;justify-content:center;margin:0 0 10px}
+.dots i{width:14px;height:14px;border-radius:50%;background:#C9D6E6;display:block}.dots i.on{background:var(--gold)}
+.grid{display:grid;gap:18px;width:100%}
+.tile{background:#fff;border:3px solid #D8E3F0;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:clamp(50px,9vw,140px);aspect-ratio:1;position:relative;overflow:hidden}
+.tile .cover{position:absolute;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:clamp(40px,6vw,90px);font-weight:900;transition:.35s}
+.tile.open .cover{transform:rotateY(90deg);opacity:0}
+.label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:clamp(16px,2vw,26px);color:var(--muted)}
+.flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;font-size:20px;z-index:20;animation:rise .3s}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.shake{animation:shake .4s}
+.confetti{position:fixed;top:-10px;width:12px;height:18px;z-index:30;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+.home{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;width:100%;max-width:1300px}
+.home a{display:block;background:#fff;border:2px solid #D8E3F0;border-radius:18px;padding:18px 20px;text-decoration:none;color:var(--navy)}
+.home a b{display:block;font-size:22px;margin-bottom:6px}.home a span{color:var(--muted);font-size:16px}
+.home a.c{border-left:10px solid var(--teal)}.home a.e{border-left:10px solid var(--gold)}
+</style></head>
+<body>
+<div id="top"><span class="eb">第五段　衛教與生活轉譯</span><span class="tt">第 12 週　把 12 週帶回家：結業與自我管理</span><a href="index.html">總覽</a></div>
+<div id="stage"></div>
+<div id="bar"></div>
+<script>
+// ---- 音效（WebAudio，不需要外部檔案）----
+const AC = { ctx:null, on:true };
+function ac(){ if(!AC.ctx){ AC.ctx = new (window.AudioContext||window.webkitAudioContext)(); } if(AC.ctx.state==='suspended') AC.ctx.resume(); return AC.ctx; }
+function tone(f, d=0.15, type='sine', vol=0.3, when=0){ if(!AC.on) return; try{ const c=ac(); const o=c.createOscillator(), g=c.createGain(); o.type=type; o.frequency.value=f; g.gain.setValueAtTime(vol, c.currentTime+when); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime+when+d); o.connect(g); g.connect(c.destination); o.start(c.currentTime+when); o.stop(c.currentTime+when+d+0.05);}catch(e){} }
+const SFX = {
+  ding(){ tone(880,.12,'sine',.3); tone(1320,.25,'sine',.25,.1); },
+  good(){ tone(523,.12,'triangle',.3); tone(659,.12,'triangle',.3,.12); tone(784,.3,'triangle',.3,.24); },
+  bad(){ tone(200,.3,'sawtooth',.2); tone(150,.35,'sawtooth',.2,.15); },
+  tick(){ tone(1000,.04,'square',.12); },
+  tock(){ tone(600,.05,'square',.12); },
+  low(){ tone(180,.35,'sine',.4); },
+  high(){ tone(900,.3,'sine',.3); },
+  drum(){ tone(120,.18,'sine',.6); },
+  clap(){ tone(2200,.04,'square',.2); tone(1500,.06,'square',.15,.02); },
+  tada(){ [523,659,784,1047].forEach((f,i)=>tone(f,.35,'triangle',.3,i*.12)); }
+};
+function confetti(n=60){ for(let i=0;i<n;i++){ const d=document.createElement('i'); d.className='confetti'; d.style.left=Math.random()*100+'vw'; d.style.background=['#D2A02A','#A8322D','#1F6F5C','#172A45','#E6B422'][i%5]; d.style.animationDuration=(1.6+Math.random()*1.4)+'s'; d.style.animationDelay=(Math.random()*.4)+'s'; document.body.appendChild(d); setTimeout(()=>d.remove(),3500);} }
+function toast(t){ const d=document.createElement('div'); d.className='toast'; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),1600); }
+function el(tag, cls, html){ const d=document.createElement(tag); if(cls) d.className=cls; if(html!==undefined) d.innerHTML=html; return d; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+const $stage = () => document.getElementById('stage');
+const $bar = () => document.getElementById('bar');
+function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); }
+function mk(label, cls, fn){ const b=el('button','btn '+(cls||''), label); b.onclick=(e)=>{ ac(); fn(e); }; return b; }
+function soundToggle(){ const b=el('button','btn ghost', '🔊 音效：開'); b.onclick=()=>{ AC.on=!AC.on; b.textContent=AC.on?'🔊 音效：開':'🔇 音效：關'; if(AC.on) ac(); }; return b; }
+function fsBtn(){ const b=el('button','', '全螢幕'); b.onclick=()=>{ const d=document.documentElement; if(!document.fullscreenElement){ (d.requestFullscreen||d.webkitRequestFullscreen).call(d); } else { document.exitFullscreen(); } }; return b; }
+document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } });
+</script>
+<script>
+const D = {"n":12,"theme":"把 12 週帶回家","topic":"把 12 週帶回家：結業與自我管理","ask":{"q":"這 12 週，你覺得最有用的一招是什麼？","opts":["吹笛子不憋氣","起身前先夾起來","每天多喝幾杯水"],"ans":"每個人的答案都算對","why":"真正有用的是你會繼續做的那一招。今天就把它挑出來。"},"do":{"title":"感言、頒獎與回饋","steps":["拿起紙杯麥克風輪流說一句得獎感言，例如「這 12 週我堅持運動，精神變好、手腳靈活」。","互相頒發感謝卡，或鄭重頒給自己，大聲說「你完成了 12 週挑戰」。","填寫學員回饋評量表（F-04），指導員一對一協助不方便書寫的長輩。"],"gear":"紙杯麥克風；感謝卡用 A4 對摺自己寫；F-04 回饋表、筆"},"take":{"check":"請每個人說出你要繼續做的三招，我會寫在你的練習卡上。","task":"拿到居家自主練習卡，挑三招每天做，設定固定時間（刷牙後、看電視廣告時）。"},"quiz":[["課程結束就不用再練了。","錯","肌力大約三週不練就開始掉。"],["挑三招每天做比十招偶爾做有效。","對","接在每天固定會做的事後面，才不會忘記。"],["練習卡上的動作在家做不安全。","錯","坐姿的動作最安全，站姿等家人在的時候再做。"],["有問題可以回來問據點。","對","據點的活動照常，指導員都在。"]],"qa":[["課程結束後還可以來據點嗎？","可以。據點的活動照常，樂器和練習卡都帶得走。"],["沒有老師帶，我會不會做錯？","練習卡上有圖跟口訣，照著做就好。有疑問隨時回來問據點的指導員。"]]};
+let step = 0; const TOTAL = 6;
+const names = ['開場','先問長輩','動手做','快問快答','大家的問題','帶回家'];
+function dots(){ const d=el('div','dots'); for(let i=0;i<TOTAL;i++){ const s=el('i'); if(i===step) s.className='on'; d.appendChild(s);} return d; }
+function nav(extra){
+  const prev = mk('◀ 上一步','ghost',()=>go(step-1)); prev.disabled = step===0;
+  const next = mk(step===TOTAL-1?'回到開頭':'下一步 ▶','',()=>go(step===TOTAL-1?0:step+1));
+  setBar(prev, extra||null, next, soundToggle());
+}
+function go(i){ step=(i+TOTAL)%TOTAL; render(); }
+document.addEventListener('keydown',e=>{ if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){ e.preventDefault(); go(step+1);} if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); go(step-1);} });
+
+function render(){
+  const s=$stage(); s.innerHTML='';
+  const c=el('div','card'); s.appendChild(c);
+  c.appendChild(dots());
+  if(step===0){
+    c.innerHTML += '<div class="eyebrow">第五段　衛教與生活轉譯</div><h2>第 '+D.n+' 週　'+D.topic+'</h2>';
+    const ul=el('div');
+    ['① 先問長輩：舉手投票，再公布答案','② 動手做：一步一步來，不用趕','③ 快問快答：這句話對還是錯？','④ 大家的問題：長輩最常問的兩題','⑤ 帶回家：一件事就好'].forEach((t,i)=>{ const p=el('p','step show',t); p.style.transitionDelay=(i*.1)+'s'; ul.appendChild(p); });
+    c.appendChild(ul);
+    nav();
+  }
+  if(step===1){
+    c.innerHTML += '<div class="eyebrow">先問長輩　請大家舉手投票，先不急著講答案</div><h2>'+D.ask.q+'</h2>';
+    const votes=[0,0,0]; const opts=[];
+    D.ask.opts.forEach((o,i)=>{
+      const b=el('button','opt','<span class="k">'+'ABC'[i]+'</span><span>'+o+'</span><span class="v">0 人</span>');
+      b.onclick=()=>{ if(b.dataset.done) return; votes[i]++; b.querySelector('.v').textContent=votes[i]+' 人'; SFX.tick(); };
+      c.appendChild(b); opts.push(b);
+    });
+    const why=el('div','why hidden','答案：'+D.ask.ans+'<br><span style="font-weight:400">'+D.ask.why+'</span>');
+    c.appendChild(why);
+    const reveal=mk('公布答案','gold',()=>{
+      opts.forEach((b,i)=>{ b.dataset.done=1; if(D.ask.opts[i]===D.ask.ans){ b.classList.add('win'); } else b.classList.add('lose'); });
+      why.classList.remove('hidden'); SFX.good(); confetti(40); reveal.disabled=true;
+    });
+    nav(reveal);
+  }
+  if(step===2){
+    c.innerHTML += '<div class="eyebrow">動手做　一次講一步，做完再講下一步</div><h2>'+D.do.title+'</h2>';
+    const list=el('div'); c.appendChild(list);
+    D.do.steps.forEach((t,i)=>{ const p=el('div','step','<span class="n">'+(i+1)+'</span><span>'+t+'</span>'); list.appendChild(p); });
+    const gear=el('p','','<span class="pill">需要準備：'+D.do.gear+'</span>'); gear.style.marginTop='14px'; c.appendChild(gear);
+    let shown=0; const steps=list.children;
+    const nextStep=mk('下一步驟','gold',()=>{ if(shown<steps.length){ steps[shown].classList.add('show'); SFX.ding(); shown++; if(shown===steps.length) nextStep.textContent='都做完了 👏'; } else { SFX.tada(); confetti(30);} });
+    // 計時器
+    const tm=el('div','timer hidden','2:00'); c.insertBefore(tm, list);
+    let left=120, iv=null;
+    const timer=mk('⏱ 2 分鐘計時','ghost',()=>{ tm.classList.remove('hidden'); if(iv){ clearInterval(iv); iv=null; timer.textContent='⏱ 繼續'; return; } timer.textContent='⏸ 暫停'; iv=setInterval(()=>{ left--; tm.textContent=Math.floor(left/60)+':'+String(left%60).padStart(2,'0'); if(left<=10) SFX.tick(); if(left<=0){ clearInterval(iv); iv=null; SFX.tada(); tm.textContent='時間到'; timer.textContent='⏱ 重來'; left=120; } },1000); });
+    const wrap=el('div'); wrap.style.display='flex'; wrap.style.gap='10px'; wrap.appendChild(nextStep); wrap.appendChild(timer);
+    nav(wrap);
+    setTimeout(()=>nextStep.click(),300);
+  }
+  if(step===3){
+    c.innerHTML += '<div class="eyebrow">快問快答　唸一題，請長輩用手比 ○ 或 ✕，再按下去看答案</div><h2>這句話，對還是錯？</h2>';
+    D.quiz.forEach((q,i)=>{
+      const b=el('button','tf','<span class="n">'+(i+1)+'</span><span>'+q[0]+'</span><span class="ans">？</span>');
+      b.onclick=()=>{ if(b.dataset.done) return; b.dataset.done=1; const a=b.querySelector('.ans'); a.textContent=q[1]; a.classList.add(q[1]==='對'?'o':'x'); b.classList.add('done'); b.appendChild(el('div','ex',q[2])); if(q[1]==='對') SFX.good(); else SFX.bad(); };
+      c.appendChild(b);
+    });
+    nav();
+  }
+  if(step===4){
+    c.innerHTML += '<div class="eyebrow">大家的問題　先讓長輩自己問；沒有人問，就用這兩題</div><h2>長輩最常問</h2>';
+    D.qa.forEach((q,i)=>{
+      const b=el('button','tf','<span class="n">問</span><span>'+q[0]+'</span><span class="ans">答</span>');
+      b.onclick=()=>{ if(b.dataset.done) return; b.dataset.done=1; b.classList.add('done'); b.querySelector('.ans').classList.add('o'); b.appendChild(el('div','ex',q[1])); SFX.ding(); };
+      c.appendChild(b);
+    });
+    nav();
+  }
+  if(step===5){
+    c.innerHTML += '<div class="eyebrow">帶回家　一件事就好，全班唸一次</div>';
+    c.appendChild(el('h2','', '回家要做的一件事'));
+    const t=el('div','why',D.take.task); c.appendChild(t);
+    const chk=el('p','','<br><b>下課前驗收：</b>'+D.take.check); c.appendChild(chk);
+    const read=mk('全班一起唸 👏','gold',()=>{ SFX.tada(); confetti(80); });
+    nav(read);
+  }
+}
+render();
+</script>
+</body></html>

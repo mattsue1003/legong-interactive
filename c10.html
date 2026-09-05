@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>第 10 週　看到我的顏色才出聲</title><style>
+:root{--navy:#172A45;--navy2:#24405F;--gold:#D2A02A;--goldd:#8A6A12;--brick:#A8322D;--teal:#1F6F5C;--ice:#E7EEF7;--ice2:#F3F7FC;--ink:#14202F;--muted:#3D4A5C;--green:#2E8B57;--yellow:#E6B422;--red:#C0392B;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
+button{font-family:inherit;cursor:pointer;border:0}
+#top{position:fixed;top:0;left:0;right:0;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;gap:14px;z-index:10}
+#top .eb{color:var(--gold);font-size:14px;letter-spacing:2px}
+#top .tt{font-size:22px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#top a,#top button{background:var(--navy2);color:#fff;border-radius:10px;padding:8px 14px;font-size:16px;text-decoration:none}
+#stage{position:absolute;top:64px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
+#bar{position:fixed;bottom:0;left:0;right:0;height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 18px;z-index:10;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border-radius:14px;padding:14px 26px;font-size:22px;font-weight:700;box-shadow:0 3px 0 #0b1a2e}
+.btn:active{transform:translateY(2px);box-shadow:none}
+.btn.gold{background:var(--gold);color:var(--navy);box-shadow:0 3px 0 #9a7418}
+.btn.ghost{background:var(--ice);color:var(--navy);box-shadow:0 3px 0 #c3d0e0}
+.btn.brick{background:var(--brick);box-shadow:0 3px 0 #6d1f1b}
+.btn.teal{background:var(--teal);box-shadow:0 3px 0 #124236}
+.btn:disabled{opacity:.4}
+.big{font-size:clamp(40px,9vw,120px);font-weight:900;line-height:1.1;text-align:center}
+.huge{font-size:clamp(90px,30vw,420px);font-weight:900;line-height:1;text-align:center}
+.card{background:#fff;border:2px solid #D8E3F0;border-radius:22px;padding:28px 34px;max-width:1100px;width:100%}
+.card h2{color:var(--navy);font-size:clamp(28px,4vw,46px);margin-bottom:18px;line-height:1.3}
+.card p{font-size:clamp(20px,2.6vw,30px);line-height:1.6}
+.eyebrow{color:var(--goldd);letter-spacing:2px;font-size:18px;margin-bottom:8px}
+.opt{display:flex;align-items:center;gap:18px;background:var(--ice);border:3px solid transparent;border-radius:18px;padding:16px 22px;margin:12px 0;font-size:clamp(22px,3vw,36px);font-weight:700;color:var(--navy);width:100%;text-align:left;transition:.2s}
+.opt .k{background:var(--gold);color:var(--navy);width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:26px}
+.opt .v{margin-left:auto;background:#fff;border-radius:12px;padding:6px 14px;font-size:22px;min-width:64px;text-align:center;color:var(--muted)}
+.opt.win{background:#E3F1EC;border-color:var(--green);animation:pop .5s}
+.opt.lose{opacity:.45}
+.why{background:var(--gold);color:var(--navy);border-radius:18px;padding:18px 24px;font-size:clamp(20px,2.6vw,32px);font-weight:700;margin-top:18px;animation:rise .5s}
+.hidden{display:none!important}
+.step{display:flex;gap:18px;align-items:flex-start;margin:14px 0;font-size:clamp(20px,2.6vw,30px);line-height:1.5;opacity:0;transform:translateX(30px);transition:.4s}
+.step.show{opacity:1;transform:none}
+.step .n{background:var(--navy);color:#fff;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex:none;font-size:24px}
+.tf{background:#fff;border:2px solid #D8E3F0;border-radius:18px;padding:18px 24px;margin:12px 0;display:flex;align-items:center;gap:18px;font-size:clamp(22px,3vw,36px);font-weight:700;color:var(--navy);width:100%;text-align:left}
+.tf .n{background:var(--gold);color:var(--navy);width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex:none;font-size:24px}
+.tf .ans{margin-left:auto;flex:none;width:96px;height:64px;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:32px;background:#B7C4D6}
+.tf .ans.o{background:var(--green);animation:pop .5s}.tf .ans.x{background:var(--red);animation:pop .5s}
+.tf .ex{width:100%;font-size:clamp(18px,2.2vw,26px);font-weight:400;color:var(--muted);margin-top:8px;padding-left:66px}
+.tf.done{flex-wrap:wrap}
+.pill{display:inline-block;background:var(--ice);color:var(--navy);border-radius:999px;padding:8px 18px;font-size:18px;margin:6px 6px 0 0}
+.timer{font-size:clamp(60px,12vw,160px);font-weight:900;color:var(--navy);text-align:center;font-variant-numeric:tabular-nums}
+.ctl{display:flex;align-items:center;gap:8px;font-size:18px;color:var(--navy)}
+.ctl input[type=range]{width:140px}
+.dots{display:flex;gap:8px;justify-content:center;margin:0 0 10px}
+.dots i{width:14px;height:14px;border-radius:50%;background:#C9D6E6;display:block}.dots i.on{background:var(--gold)}
+.grid{display:grid;gap:18px;width:100%}
+.tile{background:#fff;border:3px solid #D8E3F0;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:clamp(50px,9vw,140px);aspect-ratio:1;position:relative;overflow:hidden}
+.tile .cover{position:absolute;inset:0;background:var(--navy);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:clamp(40px,6vw,90px);font-weight:900;transition:.35s}
+.tile.open .cover{transform:rotateY(90deg);opacity:0}
+.label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:clamp(16px,2vw,26px);color:var(--muted)}
+.flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;font-size:20px;z-index:20;animation:rise .3s}
+@keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+@keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
+.shake{animation:shake .4s}
+.confetti{position:fixed;top:-10px;width:12px;height:18px;z-index:30;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}
+.home{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;width:100%;max-width:1300px}
+.home a{display:block;background:#fff;border:2px solid #D8E3F0;border-radius:18px;padding:18px 20px;text-decoration:none;color:var(--navy)}
+.home a b{display:block;font-size:22px;margin-bottom:6px}.home a span{color:var(--muted);font-size:16px}
+.home a.c{border-left:10px solid var(--teal)}.home a.e{border-left:10px solid var(--gold)}
+</style></head>
+<body>
+<div id="top"><span class="eb">第四段　體智能　簡報認知遊戲</span><span class="tt">第 10 週　看到我的顏色才出聲</span><a href="index.html">總覽</a></div>
+<div id="stage"></div>
+<div id="bar"></div>
+<script>
+// ---- 音效（WebAudio，不需要外部檔案）----
+const AC = { ctx:null, on:true };
+function ac(){ if(!AC.ctx){ AC.ctx = new (window.AudioContext||window.webkitAudioContext)(); } if(AC.ctx.state==='suspended') AC.ctx.resume(); return AC.ctx; }
+function tone(f, d=0.15, type='sine', vol=0.3, when=0){ if(!AC.on) return; try{ const c=ac(); const o=c.createOscillator(), g=c.createGain(); o.type=type; o.frequency.value=f; g.gain.setValueAtTime(vol, c.currentTime+when); g.gain.exponentialRampToValueAtTime(0.001, c.currentTime+when+d); o.connect(g); g.connect(c.destination); o.start(c.currentTime+when); o.stop(c.currentTime+when+d+0.05);}catch(e){} }
+const SFX = {
+  ding(){ tone(880,.12,'sine',.3); tone(1320,.25,'sine',.25,.1); },
+  good(){ tone(523,.12,'triangle',.3); tone(659,.12,'triangle',.3,.12); tone(784,.3,'triangle',.3,.24); },
+  bad(){ tone(200,.3,'sawtooth',.2); tone(150,.35,'sawtooth',.2,.15); },
+  tick(){ tone(1000,.04,'square',.12); },
+  tock(){ tone(600,.05,'square',.12); },
+  low(){ tone(180,.35,'sine',.4); },
+  high(){ tone(900,.3,'sine',.3); },
+  drum(){ tone(120,.18,'sine',.6); },
+  clap(){ tone(2200,.04,'square',.2); tone(1500,.06,'square',.15,.02); },
+  tada(){ [523,659,784,1047].forEach((f,i)=>tone(f,.35,'triangle',.3,i*.12)); }
+};
+function confetti(n=60){ for(let i=0;i<n;i++){ const d=document.createElement('i'); d.className='confetti'; d.style.left=Math.random()*100+'vw'; d.style.background=['#D2A02A','#A8322D','#1F6F5C','#172A45','#E6B422'][i%5]; d.style.animationDuration=(1.6+Math.random()*1.4)+'s'; d.style.animationDelay=(Math.random()*.4)+'s'; document.body.appendChild(d); setTimeout(()=>d.remove(),3500);} }
+function toast(t){ const d=document.createElement('div'); d.className='toast'; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),1600); }
+function el(tag, cls, html){ const d=document.createElement(tag); if(cls) d.className=cls; if(html!==undefined) d.innerHTML=html; return d; }
+function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+const $stage = () => document.getElementById('stage');
+const $bar = () => document.getElementById('bar');
+function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); }
+function mk(label, cls, fn){ const b=el('button','btn '+(cls||''), label); b.onclick=(e)=>{ ac(); fn(e); }; return b; }
+function soundToggle(){ const b=el('button','btn ghost', '🔊 音效：開'); b.onclick=()=>{ AC.on=!AC.on; b.textContent=AC.on?'🔊 音效：開':'🔇 音效：關'; if(AC.on) ac(); }; return b; }
+function fsBtn(){ const b=el('button','', '全螢幕'); b.onclick=()=>{ const d=document.documentElement; if(!document.fullscreenElement){ (d.requestFullscreen||d.webkitRequestFullscreen).call(d); } else { document.exitFullscreen(); } }; return b; }
+document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } });
+</script>
+<script>const NAMES={"1":"看顏色做動作","2":"看嘴型發聲","3":"客家金曲猜歌 ＋ 聽音辨位","4":"數字踏步","5":"跟著箭頭傳","6":"看完就蓋起來","7":"照順序疊杯","8":"節奏越接越長","9":"左右不要弄反","10":"看到我的顏色才出聲","11":"記住四個動作","12":"回顧大抽獎"};
+
+function showIntro(){
+  const s=$stage(); s.innerHTML='';
+  const c=el('div','card'); s.appendChild(c);
+  c.innerHTML='<div class="eyebrow">第四段　體智能　簡報認知遊戲</div><h2>看到我的顏色才出聲</h2>';
+  ["全班分三組：紅組、黃組、藍組，各拿一種樂器","畫面出現你的顏色，你這一組才演奏；沒有你的顏色就要安靜","出現兩個顏色，兩組一起","出現全彩，全班合奏"].forEach((r,i)=>{ const p=el('div','step show','<span class="n">'+(i+1)+'</span><span>'+r+'</span>'); c.appendChild(p); });
+  setBar(mk('開始','gold',()=>start()), soundToggle());
+}
+
+
+function rangeCtl(label, min, max, val, step, fmt, onchange){
+  const w=el('div','ctl'); const l=el('span','',label); const r=el('input'); r.type='range'; r.min=min; r.max=max; r.step=step||1; r.value=val; const v=el('b','',fmt(val));
+  r.oninput=()=>{ v.textContent=fmt(+r.value); onchange(+r.value); }; w.appendChild(l); w.appendChild(r); w.appendChild(v); return w;
+}
+let running=false, timer=null;
+function stop(){ running=false; if(timer){ clearTimeout(timer); timer=null; } }
+
+const C=[['#C0392B','紅組'],['#E6B422','黃組'],['#2F6DB5','藍組']];
+let interval=3, level=1;
+function start(){
+  const s=$stage(); s.innerHTML=''; s.style.padding='0'; running=true;
+  const f=el('div','flash'); f.style.background='#fff'; f.style.gap='2vw'; s.appendChild(f);
+  const block=(i)=>'<div style="flex:1;height:70vh;background:'+C[i][0]+';border-radius:24px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:clamp(40px,8vw,120px);font-weight:900;margin:0 1vw">'+C[i][1]+'</div>';
+  const go=()=>{ if(!running) return; const r=Math.random();
+    if(level>=3 && r<0.15){ f.innerHTML=block(0)+block(1)+block(2)+'<div style="position:absolute;bottom:4vh;left:0;right:0;text-align:center" class="big">全班合奏</div>'; SFX.tada(); }
+    else if(level>=2 && r<0.45){ const a=Math.floor(Math.random()*3); let b; do{ b=Math.floor(Math.random()*3);}while(b===a); f.innerHTML=block(a)+block(b); SFX.ding(); }
+    else { f.innerHTML=block(Math.floor(Math.random()*3)); SFX.tock(); }
+    timer=setTimeout(go, interval*1000); };
+  timer=setTimeout(go, 800);
+  setBar(mk('停止','brick',()=>{ stop(); showIntro(); }),
+    rangeCtl('速度',1,6,interval,0.5,v=>v.toFixed(1)+' 秒',v=>interval=v),
+    rangeCtl('難度',1,3,level,1,v=>['','一次一組','兩組一起','加入全班合奏'][v],v=>level=v),
+    soundToggle());
+}
+showIntro();</script>
+</body></html>
