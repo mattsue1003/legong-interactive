@@ -3,15 +3,15 @@
 <title>第 2 週　看嘴型發聲</title><style>
 :root{--navy:#172A45;--navy2:#24405F;--gold:#D2A02A;--goldd:#8A6A12;--brick:#A8322D;--teal:#1F6F5C;--ice:#E7EEF7;--ice2:#F3F7FC;--ink:#14202F;--muted:#3D4A5C;--green:#2E8B57;--yellow:#E6B422;--red:#C0392B;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
+html,body{height:100%;height:100dvh;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:0}
 #top{position:fixed;top:0;left:0;right:0;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;gap:14px;z-index:10}
 #top .eb{color:var(--gold);font-size:14px;letter-spacing:2px}
 #top .tt{font-size:22px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top a,#top button{background:var(--navy2);color:#fff;border-radius:10px;padding:8px 14px;font-size:16px;text-decoration:none}
-#stage{position:absolute;top:64px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
-#bar{position:fixed;bottom:0;left:0;right:0;height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 18px;z-index:10;flex-wrap:wrap}
-.btn{background:var(--navy);color:#fff;border-radius:14px;padding:14px 26px;font-size:22px;font-weight:700;box-shadow:0 3px 0 #0b1a2e}
+#stage{position:absolute;top:64px;bottom:var(--barH,88px);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;-webkit-overflow-scrolling:touch}
+#bar{position:fixed;bottom:0;left:0;right:0;min-height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:10px 14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:10;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border-radius:14px;padding:12px 22px;font-size:20px;font-weight:700;box-shadow:0 3px 0 #0b1a2e;line-height:1.2}
 .btn:active{transform:translateY(2px);box-shadow:none}
 .btn.gold{background:var(--gold);color:var(--navy);box-shadow:0 3px 0 #9a7418}
 .btn.ghost{background:var(--ice);color:var(--navy);box-shadow:0 3px 0 #c3d0e0}
@@ -53,6 +53,27 @@ button{font-family:inherit;cursor:pointer;border:0}
 .label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:clamp(16px,2vw,26px);color:var(--muted)}
 .flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;font-size:20px;z-index:20;animation:rise .3s}
+@media (max-width:700px){
+  #top{height:56px;padding:0 10px;gap:8px}#top .tt{font-size:16px}#top .eb{display:none}#top a,#top button{padding:6px 10px;font-size:14px}
+  #stage{top:56px;padding:12px}
+  .btn{padding:10px 14px;font-size:16px;border-radius:12px}
+  .card{padding:18px 16px;border-radius:16px}
+  .opt{padding:12px 14px;gap:12px;font-size:20px}.opt .k{width:40px;height:40px;font-size:20px}.opt .v{font-size:16px;min-width:52px;padding:4px 8px}
+  .tf{padding:12px 14px;font-size:18px;gap:12px}.tf .n{width:38px;height:38px;font-size:18px}.tf .ans{width:70px;height:50px;font-size:24px}.tf .ex{padding-left:50px}
+  .step{font-size:18px}.step .n{width:36px;height:36px;font-size:18px}
+  .ctl{font-size:14px}.ctl input[type=range]{width:90px}
+  .home{grid-template-columns:1fr}
+}
+.score{position:fixed;top:64px;left:0;right:0;height:44px;background:#fff;border-bottom:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:9;font-size:18px;color:var(--navy);font-weight:700}
+.score b{background:var(--gold);color:var(--navy);border-radius:999px;padding:2px 14px;font-size:20px}
+.score .lv{background:var(--ice);border-radius:999px;padding:2px 12px;font-weight:700;color:var(--goldd)}
+.score .team{display:flex;align-items:center;gap:6px}
+.score .team button{background:var(--ice);border-radius:8px;padding:4px 10px;font-size:16px;font-weight:700;color:var(--navy)}
+.score .team.r button{background:#FBEDEC;color:var(--brick)}.score .team.b button{background:#E3ECF7;color:#2F6DB5}
+body.hasScore #stage{top:108px}
+@media (max-width:700px){.score{top:56px;height:40px;font-size:15px;gap:10px}.score b{font-size:16px}body.hasScore #stage{top:96px}}
+.rq{background:var(--ice);border-radius:18px;padding:18px 22px;margin-top:14px;font-size:clamp(20px,2.6vw,30px);color:var(--navy)}
+.rq .a{display:none;margin-top:10px;font-weight:900;color:var(--brick)}.rq.open .a{display:block;animation:pop .4s}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
@@ -92,22 +113,15 @@ function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.fl
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 const $stage = () => document.getElementById('stage');
 const $bar = () => document.getElementById('bar');
-function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); }
+function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); requestAnimationFrame(()=>{ if(typeof fitBar==='function') fitBar(); }); }
 function mk(label, cls, fn){ const b=el('button','btn '+(cls||''), label); b.onclick=(e)=>{ ac(); fn(e); }; return b; }
 function soundToggle(){ const b=el('button','btn ghost', '🔊 音效：開'); b.onclick=()=>{ AC.on=!AC.on; b.textContent=AC.on?'🔊 音效：開':'🔇 音效：關'; if(AC.on) ac(); }; return b; }
 function fsBtn(){ const b=el('button','', '全螢幕'); b.onclick=()=>{ const d=document.documentElement; if(!document.fullscreenElement){ (d.requestFullscreen||d.webkitRequestFullscreen).call(d); } else { document.exitFullscreen(); } }; return b; }
-document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } });
+function fitBar(){ const b=document.getElementById('bar'); if(!b) return; document.documentElement.style.setProperty('--barH', b.offsetHeight+'px'); }
+document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } fitBar(); const b=document.getElementById('bar'); if(window.ResizeObserver&&b){ new ResizeObserver(fitBar).observe(b); } window.addEventListener('resize', fitBar); });
+
 </script>
 <script>const NAMES={"1":"看顏色做動作","2":"看嘴型發聲","3":"客家金曲猜歌 ＋ 聽音辨位","4":"數字踏步","5":"跟著箭頭傳","6":"看完就蓋起來","7":"照順序疊杯","8":"節奏越接越長","9":"左右不要弄反","10":"看到我的顏色才出聲","11":"記住四個動作","12":"回顧大抽獎"};
-
-function showIntro(){
-  const s=$stage(); s.innerHTML='';
-  const c=el('div','card'); s.appendChild(c);
-  c.innerHTML='<div class="eyebrow">第四段　體智能　簡報認知遊戲</div><h2>看嘴型發聲</h2>';
-  ["依序出現 ㄚ ㄧ ㄨ ㄝ ㄛ 五個嘴型","看到哪個就發哪個音，同時敲一下響板","速度由慢到快","最後一輪只給嘴型圖，不給字"].forEach((r,i)=>{ const p=el('div','step show','<span class="n">'+(i+1)+'</span><span>'+r+'</span>'); c.appendChild(p); });
-  setBar(mk('開始','gold',()=>start()), soundToggle());
-}
-
 
 function rangeCtl(label, min, max, val, step, fmt, onchange){
   const w=el('div','ctl'); const l=el('span','',label); const r=el('input'); r.type='range'; r.min=min; r.max=max; r.step=step||1; r.value=val; const v=el('b','',fmt(val));
@@ -115,26 +129,84 @@ function rangeCtl(label, min, max, val, step, fmt, onchange){
 }
 let running=false, timer=null;
 function stop(){ running=false; if(timer){ clearTimeout(timer); timer=null; } }
+function L(){ return LEVELS[G.level-1]; }
+function cnt(arr, v){ return arr.filter(x=>x===v).length; }
+
+const G = { stars:0, red:0, blue:0, team:false, level:1, round:0, log:[] };
+let LEVELS = [];
+function scoreBar(){
+  let sb=document.querySelector('.score'); if(!sb){ sb=el('div','score'); document.body.appendChild(sb); document.body.classList.add('hasScore'); }
+  sb.innerHTML='';
+  const lv=el('span','lv','第 '+G.level+' 關　'+(LEVELS[G.level-1]?LEVELS[G.level-1].name:'')); sb.appendChild(lv);
+  if(!G.team){ const st=el('span','','全班 ⭐ '); const b=el('b','',G.stars); st.appendChild(b); sb.appendChild(st);
+    const add=el('button','','＋⭐'); add.className=''; add.style.cssText='background:var(--gold);border-radius:8px;padding:4px 10px;font-weight:700'; add.onclick=()=>{ G.stars++; SFX.ding(); scoreBar(); if(G.stars%5===0) confetti(30); }; sb.appendChild(add);
+  } else {
+    const r=el('span','team r'); r.innerHTML='紅隊 <b>'+G.red+'</b>'; const rb=el('button','','＋1'); rb.onclick=()=>{ G.red++; SFX.ding(); scoreBar(); }; r.appendChild(rb); sb.appendChild(r);
+    const b=el('span','team b'); b.innerHTML='藍隊 <b>'+G.blue+'</b>'; const bb=el('button','','＋1'); bb.onclick=()=>{ G.blue++; SFX.ding(); scoreBar(); }; b.appendChild(bb); sb.appendChild(b);
+  }
+  const tg=el('button','',G.team?'改全班':'分兩隊'); tg.style.cssText='background:var(--ice);border-radius:8px;padding:4px 10px;font-weight:700;color:var(--navy)'; tg.onclick=()=>{ G.team=!G.team; scoreBar(); }; sb.appendChild(tg);
+}
+function levelCtl(){ const w=el('div','ctl'); const l=el('span','','關卡'); const sel=el('select'); sel.style.cssText='font-size:16px;padding:6px 8px;border-radius:8px;border:2px solid #D8E3F0';
+  LEVELS.forEach((L,i)=>{ const o=el('option','', (i+1)+'　'+L.name); o.value=i+1; if(G.level===i+1) o.selected=true; sel.appendChild(o); });
+  sel.onchange=()=>{ G.level=+sel.value; scoreBar(); if(typeof onLevel==='function') onLevel(); }; w.appendChild(l); w.appendChild(sel); return w; }
+// 回合結束：摘要 + 回想題（按了才出現答案）+ 加分 + 下一關
+function endRound(summary, questions, again){
+  stop(); G.round++;
+  const s=$stage(); s.innerHTML=''; s.style.padding='24px';
+  const c=el('div','card'); s.appendChild(c);
+  c.innerHTML='<div class="eyebrow">第 '+G.round+' 回合結束　'+(LEVELS[G.level-1]?LEVELS[G.level-1].name:'')+'</div><h2>'+summary+'</h2>';
+  c.appendChild(el('p','', '<b>回想題</b>：先問長輩，大家說出答案之後再按題目看答案。答對就加分。'));
+  questions.forEach(q=>{ const d=el('div','rq', q[0]+'<div class="a">答案：'+q[1]+'</div>'); d.onclick=()=>{ d.classList.toggle('open'); SFX.ding(); }; c.appendChild(d); });
+  const cheer=el('p','','<br>全班一起做對了嗎？'); c.appendChild(cheer);
+  const ok=mk('👏 大家都對，加分','gold',()=>{ if(G.team){ G.red++; G.blue++; } else G.stars+=2; scoreBar(); SFX.tada(); confetti(50); ok.disabled=true; });
+  const up=mk('下一關 ▶','teal',()=>{ if(G.level<LEVELS.length){ G.level++; } scoreBar(); again(); });
+  const same=mk('同一關再一次','',()=>again());
+  const home=mk('說明','ghost',()=>showIntro());
+  setBar(ok, same, up, home, soundToggle());
+  SFX.good();
+}
+LEVELS=[{"name":"圖＋字","n":10,"t":2.5,"pair":false,"hide":false},{"name":"只給圖","n":10,"t":2.2,"pair":false,"hide":true},{"name":"兩個連著做","n":8,"t":3.2,"pair":true,"hide":true},{"name":"找不同","n":8,"t":4,"diff":true}];
+
+function showIntro(){
+  stop(); scoreBar();
+  const s=$stage(); s.innerHTML=''; s.style.padding='24px';
+  const c=el('div','card'); s.appendChild(c);
+  c.innerHTML='<div class="eyebrow">第四段　體智能　簡報認知遊戲</div><h2>看嘴型發聲</h2>';
+  ["看到哪個嘴型就發哪個音，同時敲一下響板","第 2 關起只給嘴型圖不給字；第 3 關一次出兩個要連著做","第 4 關「找不同」：三張臉裡有一張嘴型不一樣，指出是哪一張","回合結束問：剛剛哪個音出現最多次？"].forEach((r,i)=>{ const p=el('div','step show','<span class="n">'+(i+1)+'</span><span>'+r+'</span>'); c.appendChild(p); });
+  const lv=el('p','','<br><b>關卡：</b>'+LEVELS.map((L,i)=>'第 '+(i+1)+' 關 '+L.name).join('　→　')); c.appendChild(lv);
+  c.appendChild(el('p','','每一回合結束會出「回想題」：剛剛出現了幾次、第一個是什麼……讓長輩邊玩邊記。'));
+  setBar(mk('開始','gold',()=>start()), levelCtl(), soundToggle());
+}
 
 const M=[['ㄚ','大口張開','<ellipse cx="60" cy="60" rx="34" ry="40" fill="#A8322D" stroke="#14202F" stroke-width="6"/>'],
  ['ㄧ','兩側拉開','<ellipse cx="60" cy="60" rx="52" ry="12" fill="#A8322D" stroke="#14202F" stroke-width="6"/>'],
  ['ㄨ','嘴唇縮圓','<circle cx="60" cy="60" r="16" fill="#A8322D" stroke="#14202F" stroke-width="6"/>'],
  ['ㄝ','嘴角微張','<ellipse cx="60" cy="60" rx="40" ry="22" fill="#A8322D" stroke="#14202F" stroke-width="6"/>'],
  ['ㄛ','縱向拉長','<ellipse cx="60" cy="60" rx="20" ry="44" fill="#A8322D" stroke="#14202F" stroke-width="6"/>']];
-let interval=2.5, hide=false, seq=[], idx=0, mode='order';
-function face(svg){ return '<svg viewBox="0 0 120 120" width="min(50vw,50vh)"><circle cx="60" cy="60" r="56" fill="#FFE0B2" stroke="#14202F" stroke-width="4"/><circle cx="40" cy="42" r="5" fill="#14202F"/><circle cx="80" cy="42" r="5" fill="#14202F"/>'+svg+'</svg>'; }
+let interval=2.5, seq=[], idx=0, diffAns=[];
+function face(svg, size){ return '<svg viewBox="0 0 120 120" width="'+(size||'min(40vw,45vh)')+'"><circle cx="60" cy="60" r="56" fill="#FFE0B2" stroke="#14202F" stroke-width="4"/><circle cx="40" cy="42" r="5" fill="#14202F"/><circle cx="80" cy="42" r="5" fill="#14202F"/>'+svg+'</svg>'; }
 function start(){
-  const s=$stage(); s.innerHTML=''; running=true; idx=0;
-  const box=el('div'); box.style.textAlign='center'; s.appendChild(box);
-  const go=()=>{ if(!running) return; const i = mode==='order'? idx%5 : Math.floor(Math.random()*5); idx++;
-    box.innerHTML=face(M[i][2])+'<div class="big" style="color:#172A45">'+(hide?'':M[i][0])+'</div><div style="font-size:24px;color:#3D4A5C">'+(hide?'':M[i][1])+'</div>';
+  const Lv=L(); interval=Lv.t; seq=[]; idx=0; diffAns=[]; running=true;
+  for(let i=0;i<Lv.n;i++) seq.push(Lv.pair?[Math.floor(Math.random()*5),Math.floor(Math.random()*5)]:Math.floor(Math.random()*5));
+  const s=$stage(); s.innerHTML=''; s.style.padding='12px';
+  const box=el('div'); box.style.textAlign='center'; box.style.width='100%'; s.appendChild(box);
+  const go=()=>{ if(!running) return; if(idx>=seq.length){ finish(); return; }
+    if(Lv.diff){ const base=Math.floor(Math.random()*5); let other; do{ other=Math.floor(Math.random()*5);}while(other===base); const pos=Math.floor(Math.random()*3); diffAns.push(pos+1);
+      box.innerHTML='<div class="big" style="color:#172A45;font-size:clamp(24px,4vw,44px)">哪一張不一樣？</div><div style="display:flex;justify-content:center;gap:2vw;margin-top:10px">'+[0,1,2].map(i=>'<div>'+face(M[i===pos?other:base][2],'min(28vw,36vh)')+'<div class="big" style="font-size:clamp(24px,4vw,44px);color:#3D4A5C">'+(i+1)+'</div></div>').join('')+'</div>';
+      idx++; SFX.tock(); timer=setTimeout(go, interval*1000); return; }
+    const it=seq[idx++];
+    if(Lv.pair){ box.innerHTML='<div style="display:flex;justify-content:center;gap:4vw">'+it.map(i=>'<div>'+face(M[i][2],'min(30vw,40vh)')+'<div class="big" style="color:#172A45">'+(Lv.hide?'':M[i][0])+'</div></div>').join('')+'</div><div style="font-size:20px;color:#3D4A5C">連著做兩個</div>'; }
+    else { box.innerHTML=face(M[it][2])+'<div class="big" style="color:#172A45">'+(Lv.hide?'':M[it][0])+'</div><div style="font-size:22px;color:#3D4A5C">'+(Lv.hide?'':M[it][1])+'</div>'; }
     SFX.clap(); timer=setTimeout(go, interval*1000); };
   go();
-  setBar(mk('停止','brick',()=>{ stop(); showIntro(); }),
-    rangeCtl('速度',0.8,4,interval,0.1,v=>v.toFixed(1)+' 秒',v=>interval=v),
-    mk('順序','ghost',(e)=>{ mode=mode==='order'?'random':'order'; e.target.textContent=mode==='order'?'順序':'隨機'; }),
-    mk('只給圖','ghost',(e)=>{ hide=!hide; e.target.textContent=hide?'圖＋字':'只給圖'; }),
-    soundToggle());
+  setBar(mk('停止','brick',()=>{ stop(); showIntro(); }), rangeCtl('速度',0.8,5,interval,0.1,v=>v.toFixed(1)+' 秒',v=>interval=v), levelCtl(), soundToggle());
+}
+function finish(){
+  const Lv=L(); let qs=[];
+  if(Lv.diff){ qs=[['第一題不一樣的是第幾張？', '第 '+diffAns[0]+' 張'],['最後一題不一樣的是第幾張？', '第 '+diffAns[diffAns.length-1]+' 張']]; }
+  else { const flat=Lv.pair?seq.flat():seq; const counts=[0,1,2,3,4].map(i=>cnt(flat,i)); const mx=counts.indexOf(Math.max(...counts));
+    qs=[['剛剛哪個音出現最多次？', M[mx][0]+'（'+counts[mx]+' 次）'],['第一個嘴型是哪一個？', M[Lv.pair?seq[0][0]:seq[0]][0]],['「ㄨ」（嘴唇縮圓）出現了幾次？', counts[2]+' 次']]; }
+  endRound('這一回合 '+seq.length+' 題，嘴巴有沒有動開？', qs, start);
 }
 showIntro();</script>
 </body></html>

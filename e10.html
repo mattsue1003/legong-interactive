@@ -3,15 +3,15 @@
 <title>第 10 週　我的餐盤與在地食材：運動後怎麼吃</title><style>
 :root{--navy:#172A45;--navy2:#24405F;--gold:#D2A02A;--goldd:#8A6A12;--brick:#A8322D;--teal:#1F6F5C;--ice:#E7EEF7;--ice2:#F3F7FC;--ink:#14202F;--muted:#3D4A5C;--green:#2E8B57;--yellow:#E6B422;--red:#C0392B;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
+html,body{height:100%;height:100dvh;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:0}
 #top{position:fixed;top:0;left:0;right:0;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;gap:14px;z-index:10}
 #top .eb{color:var(--gold);font-size:14px;letter-spacing:2px}
 #top .tt{font-size:22px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top a,#top button{background:var(--navy2);color:#fff;border-radius:10px;padding:8px 14px;font-size:16px;text-decoration:none}
-#stage{position:absolute;top:64px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
-#bar{position:fixed;bottom:0;left:0;right:0;height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 18px;z-index:10;flex-wrap:wrap}
-.btn{background:var(--navy);color:#fff;border-radius:14px;padding:14px 26px;font-size:22px;font-weight:700;box-shadow:0 3px 0 #0b1a2e}
+#stage{position:absolute;top:64px;bottom:var(--barH,88px);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;-webkit-overflow-scrolling:touch}
+#bar{position:fixed;bottom:0;left:0;right:0;min-height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:10px 14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:10;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border-radius:14px;padding:12px 22px;font-size:20px;font-weight:700;box-shadow:0 3px 0 #0b1a2e;line-height:1.2}
 .btn:active{transform:translateY(2px);box-shadow:none}
 .btn.gold{background:var(--gold);color:var(--navy);box-shadow:0 3px 0 #9a7418}
 .btn.ghost{background:var(--ice);color:var(--navy);box-shadow:0 3px 0 #c3d0e0}
@@ -53,6 +53,27 @@ button{font-family:inherit;cursor:pointer;border:0}
 .label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:clamp(16px,2vw,26px);color:var(--muted)}
 .flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;font-size:20px;z-index:20;animation:rise .3s}
+@media (max-width:700px){
+  #top{height:56px;padding:0 10px;gap:8px}#top .tt{font-size:16px}#top .eb{display:none}#top a,#top button{padding:6px 10px;font-size:14px}
+  #stage{top:56px;padding:12px}
+  .btn{padding:10px 14px;font-size:16px;border-radius:12px}
+  .card{padding:18px 16px;border-radius:16px}
+  .opt{padding:12px 14px;gap:12px;font-size:20px}.opt .k{width:40px;height:40px;font-size:20px}.opt .v{font-size:16px;min-width:52px;padding:4px 8px}
+  .tf{padding:12px 14px;font-size:18px;gap:12px}.tf .n{width:38px;height:38px;font-size:18px}.tf .ans{width:70px;height:50px;font-size:24px}.tf .ex{padding-left:50px}
+  .step{font-size:18px}.step .n{width:36px;height:36px;font-size:18px}
+  .ctl{font-size:14px}.ctl input[type=range]{width:90px}
+  .home{grid-template-columns:1fr}
+}
+.score{position:fixed;top:64px;left:0;right:0;height:44px;background:#fff;border-bottom:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:9;font-size:18px;color:var(--navy);font-weight:700}
+.score b{background:var(--gold);color:var(--navy);border-radius:999px;padding:2px 14px;font-size:20px}
+.score .lv{background:var(--ice);border-radius:999px;padding:2px 12px;font-weight:700;color:var(--goldd)}
+.score .team{display:flex;align-items:center;gap:6px}
+.score .team button{background:var(--ice);border-radius:8px;padding:4px 10px;font-size:16px;font-weight:700;color:var(--navy)}
+.score .team.r button{background:#FBEDEC;color:var(--brick)}.score .team.b button{background:#E3ECF7;color:#2F6DB5}
+body.hasScore #stage{top:108px}
+@media (max-width:700px){.score{top:56px;height:40px;font-size:15px;gap:10px}.score b{font-size:16px}body.hasScore #stage{top:96px}}
+.rq{background:var(--ice);border-radius:18px;padding:18px 22px;margin-top:14px;font-size:clamp(20px,2.6vw,30px);color:var(--navy)}
+.rq .a{display:none;margin-top:10px;font-weight:900;color:var(--brick)}.rq.open .a{display:block;animation:pop .4s}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
@@ -92,11 +113,13 @@ function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.fl
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 const $stage = () => document.getElementById('stage');
 const $bar = () => document.getElementById('bar');
-function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); }
+function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); requestAnimationFrame(()=>{ if(typeof fitBar==='function') fitBar(); }); }
 function mk(label, cls, fn){ const b=el('button','btn '+(cls||''), label); b.onclick=(e)=>{ ac(); fn(e); }; return b; }
 function soundToggle(){ const b=el('button','btn ghost', '🔊 音效：開'); b.onclick=()=>{ AC.on=!AC.on; b.textContent=AC.on?'🔊 音效：開':'🔇 音效：關'; if(AC.on) ac(); }; return b; }
 function fsBtn(){ const b=el('button','', '全螢幕'); b.onclick=()=>{ const d=document.documentElement; if(!document.fullscreenElement){ (d.requestFullscreen||d.webkitRequestFullscreen).call(d); } else { document.exitFullscreen(); } }; return b; }
-document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } });
+function fitBar(){ const b=document.getElementById('bar'); if(!b) return; document.documentElement.style.setProperty('--barH', b.offsetHeight+'px'); }
+document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } fitBar(); const b=document.getElementById('bar'); if(window.ResizeObserver&&b){ new ResizeObserver(fitBar).observe(b); } window.addEventListener('resize', fitBar); });
+
 </script>
 <script>
 const D = {"n":10,"theme":"我的餐盤與在地食材","topic":"我的餐盤與在地食材：運動後怎麼吃","ask":{"q":"運動完 30 到 60 分鐘內，最該補的是哪一樣？","opts":["一杯手搖飲","一顆蛋或一杯豆漿","什麼都不用補"],"ans":"一顆蛋或一杯豆漿","why":"練完肌肉正在修補，這時候補一份蛋白質最有用。口渴、疲勞是黃燈，補水休息；頭暈、胸悶是紅燈，馬上停。"},"do":{"title":"用手畫出我的餐盤：一半菜、四分之一飯、四分之一魚肉豆蛋","steps":["空白 A4 畫一個大圓，中間畫一條線分一半，右半再分一半：一半放蔬菜、四分之一放全穀飯、四分之一放魚肉豆蛋，旁邊畫一杯奶和一個水果。","在地食材填進去：苗栗有什麼？請長輩喊——地瓜葉、芋頭、番茄、柑橘、仙草、客家鹹豬肉、福菜。老師寫在白板，長輩把喊出來的填進自己的餐盤格子裡。","把自己昨天的晚餐畫進另一個餐盤，比一比哪一格最少，那一格就是這禮拜要多加的。"],"gear":"空白 A4 每人一張；在地食材由長輩自己喊，老師寫白板，不用印圖"},"take":{"check":"待會我會問：運動完該補哪一樣？餐盤裡一半要放什麼？","task":"回家把餐盤圖貼在冰箱；今天運動完的 30 到 60 分鐘內，補一份蛋白質。"},"quiz":[["運動完要等身體冷下來才能吃東西。","錯","運動後 30 到 60 分鐘是肌肉最會吸收的時候。"],["運動完頭暈胸悶是紅燈。","對","要立刻停下來告訴老師，必要時就醫。"],["流汗多就要多補水。","對","運動前中後都要補，不要等口渴。"],["運動後補充只要吃澱粉就好。","錯","蛋白質加一點澱粉才是完整的補充。"]],"qa":[["運動完可以馬上洗澡嗎？","先坐著休息十到十五分鐘，等汗退、心跳緩下來再洗，水溫不要太燙。"],["我有糖尿病，運動前要吃東西嗎？","如果快到飯前容易低血糖，運動前可以先吃一點點。身邊隨時準備糖果。"]]};

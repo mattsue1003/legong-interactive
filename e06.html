@@ -3,15 +3,15 @@
 <title>第 6 週　記憶力的警訊：失智十大警訊與求助管道</title><style>
 :root{--navy:#172A45;--navy2:#24405F;--gold:#D2A02A;--goldd:#8A6A12;--brick:#A8322D;--teal:#1F6F5C;--ice:#E7EEF7;--ice2:#F3F7FC;--ink:#14202F;--muted:#3D4A5C;--green:#2E8B57;--yellow:#E6B422;--red:#C0392B;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
+html,body{height:100%;height:100dvh;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:0}
 #top{position:fixed;top:0;left:0;right:0;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;gap:14px;z-index:10}
 #top .eb{color:var(--gold);font-size:14px;letter-spacing:2px}
 #top .tt{font-size:22px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top a,#top button{background:var(--navy2);color:#fff;border-radius:10px;padding:8px 14px;font-size:16px;text-decoration:none}
-#stage{position:absolute;top:64px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
-#bar{position:fixed;bottom:0;left:0;right:0;height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 18px;z-index:10;flex-wrap:wrap}
-.btn{background:var(--navy);color:#fff;border-radius:14px;padding:14px 26px;font-size:22px;font-weight:700;box-shadow:0 3px 0 #0b1a2e}
+#stage{position:absolute;top:64px;bottom:var(--barH,88px);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;-webkit-overflow-scrolling:touch}
+#bar{position:fixed;bottom:0;left:0;right:0;min-height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:10px 14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:10;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border-radius:14px;padding:12px 22px;font-size:20px;font-weight:700;box-shadow:0 3px 0 #0b1a2e;line-height:1.2}
 .btn:active{transform:translateY(2px);box-shadow:none}
 .btn.gold{background:var(--gold);color:var(--navy);box-shadow:0 3px 0 #9a7418}
 .btn.ghost{background:var(--ice);color:var(--navy);box-shadow:0 3px 0 #c3d0e0}
@@ -53,6 +53,27 @@ button{font-family:inherit;cursor:pointer;border:0}
 .label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:clamp(16px,2vw,26px);color:var(--muted)}
 .flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;font-size:20px;z-index:20;animation:rise .3s}
+@media (max-width:700px){
+  #top{height:56px;padding:0 10px;gap:8px}#top .tt{font-size:16px}#top .eb{display:none}#top a,#top button{padding:6px 10px;font-size:14px}
+  #stage{top:56px;padding:12px}
+  .btn{padding:10px 14px;font-size:16px;border-radius:12px}
+  .card{padding:18px 16px;border-radius:16px}
+  .opt{padding:12px 14px;gap:12px;font-size:20px}.opt .k{width:40px;height:40px;font-size:20px}.opt .v{font-size:16px;min-width:52px;padding:4px 8px}
+  .tf{padding:12px 14px;font-size:18px;gap:12px}.tf .n{width:38px;height:38px;font-size:18px}.tf .ans{width:70px;height:50px;font-size:24px}.tf .ex{padding-left:50px}
+  .step{font-size:18px}.step .n{width:36px;height:36px;font-size:18px}
+  .ctl{font-size:14px}.ctl input[type=range]{width:90px}
+  .home{grid-template-columns:1fr}
+}
+.score{position:fixed;top:64px;left:0;right:0;height:44px;background:#fff;border-bottom:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:9;font-size:18px;color:var(--navy);font-weight:700}
+.score b{background:var(--gold);color:var(--navy);border-radius:999px;padding:2px 14px;font-size:20px}
+.score .lv{background:var(--ice);border-radius:999px;padding:2px 12px;font-weight:700;color:var(--goldd)}
+.score .team{display:flex;align-items:center;gap:6px}
+.score .team button{background:var(--ice);border-radius:8px;padding:4px 10px;font-size:16px;font-weight:700;color:var(--navy)}
+.score .team.r button{background:#FBEDEC;color:var(--brick)}.score .team.b button{background:#E3ECF7;color:#2F6DB5}
+body.hasScore #stage{top:108px}
+@media (max-width:700px){.score{top:56px;height:40px;font-size:15px;gap:10px}.score b{font-size:16px}body.hasScore #stage{top:96px}}
+.rq{background:var(--ice);border-radius:18px;padding:18px 22px;margin-top:14px;font-size:clamp(20px,2.6vw,30px);color:var(--navy)}
+.rq .a{display:none;margin-top:10px;font-weight:900;color:var(--brick)}.rq.open .a{display:block;animation:pop .4s}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
@@ -92,11 +113,13 @@ function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.fl
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 const $stage = () => document.getElementById('stage');
 const $bar = () => document.getElementById('bar');
-function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); }
+function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); requestAnimationFrame(()=>{ if(typeof fitBar==='function') fitBar(); }); }
 function mk(label, cls, fn){ const b=el('button','btn '+(cls||''), label); b.onclick=(e)=>{ ac(); fn(e); }; return b; }
 function soundToggle(){ const b=el('button','btn ghost', '🔊 音效：開'); b.onclick=()=>{ AC.on=!AC.on; b.textContent=AC.on?'🔊 音效：開':'🔇 音效：關'; if(AC.on) ac(); }; return b; }
 function fsBtn(){ const b=el('button','', '全螢幕'); b.onclick=()=>{ const d=document.documentElement; if(!document.fullscreenElement){ (d.requestFullscreen||d.webkitRequestFullscreen).call(d); } else { document.exitFullscreen(); } }; return b; }
-document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } });
+function fitBar(){ const b=document.getElementById('bar'); if(!b) return; document.documentElement.style.setProperty('--barH', b.offsetHeight+'px'); }
+document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } fitBar(); const b=document.getElementById('bar'); if(window.ResizeObserver&&b){ new ResizeObserver(fitBar).observe(b); } window.addEventListener('resize', fitBar); });
+
 </script>
 <script>
 const D = {"n":6,"theme":"記憶力的警訊","topic":"記憶力的警訊：失智十大警訊與求助管道","ask":{"q":"哪一種情況比較需要看醫生？","opts":["忘記鑰匙放哪裡，找一找就想起來","忘記自己剛剛吃過飯","想不起來電視劇的演員名字"],"ans":"忘記自己剛剛吃過飯","why":"忘記「事情發生過」和忘記「細節」不一樣。整件事都不見了，要請醫生看看。"},"do":{"title":"正常老化還是要注意？分組舉牌","steps":["兩組對抗。指導員念出一個情況，各組討論後舉「正常」或「要注意」的牌子。","題目例如：同一件事重複問三次／算錢慢一點／煮飯忘了關火／找不到老花眼鏡。","每題公布答案後，用一句話說明為什麼，答對的組別鼓掌。"],"gear":"投影十大警訊；舉右手＝正常、舉左手＝要注意，不用舉牌"},"take":{"check":"待會我會問：發現家人怪怪的，可以去哪裡問？","task":"回家想一個你想幫他留意的家人，記住據點和衛生所都可以幫忙轉介。"},"quiz":[["忘記鑰匙放哪裡就是失智。","錯","忘記細節多半是正常老化，忘記整件事才要看醫生。"],["同一件事在十分鐘內問三次要注意。","對","短期記憶明顯出問題，建議到記憶門診評估。"],["多動腦可以延緩認知退化。","對","動腦又動手最有效，例如算錢、剪報、打電話約人。"],["失智一定沒救，看醫生也沒用。","錯","有些原因（甲狀腺、憂鬱、藥物）是可以治療的，早查早處理。"]],"qa":[["我媽媽有失智，我是不是也會？","有家族史風險會高一點，但生活習慣影響更大。多動、多互動、控制三高最實在。"],["去看記憶門診會不會被貼標籤？","早點確認反而能早點處理。很多可以治療的原因（甲狀腺、憂鬱、藥物）也會像失智。"]]};

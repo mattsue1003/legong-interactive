@@ -3,15 +3,15 @@
 <title>第 3 週　耳朵要保養：聽力保健與溝通技巧</title><style>
 :root{--navy:#172A45;--navy2:#24405F;--gold:#D2A02A;--goldd:#8A6A12;--brick:#A8322D;--teal:#1F6F5C;--ice:#E7EEF7;--ice2:#F3F7FC;--ink:#14202F;--muted:#3D4A5C;--green:#2E8B57;--yellow:#E6B422;--red:#C0392B;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
+html,body{height:100%;height:100dvh;font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei","Heiti TC",sans-serif;background:var(--ice2);color:var(--ink);overflow:hidden}
 button{font-family:inherit;cursor:pointer;border:0}
 #top{position:fixed;top:0;left:0;right:0;height:64px;background:var(--navy);color:#fff;display:flex;align-items:center;padding:0 18px;gap:14px;z-index:10}
 #top .eb{color:var(--gold);font-size:14px;letter-spacing:2px}
 #top .tt{font-size:22px;font-weight:700;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 #top a,#top button{background:var(--navy2);color:#fff;border-radius:10px;padding:8px 14px;font-size:16px;text-decoration:none}
-#stage{position:absolute;top:64px;bottom:88px;left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto}
-#bar{position:fixed;bottom:0;left:0;right:0;height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:14px;padding:0 18px;z-index:10;flex-wrap:wrap}
-.btn{background:var(--navy);color:#fff;border-radius:14px;padding:14px 26px;font-size:22px;font-weight:700;box-shadow:0 3px 0 #0b1a2e}
+#stage{position:absolute;top:64px;bottom:var(--barH,88px);left:0;right:0;display:flex;align-items:center;justify-content:center;padding:24px;overflow:auto;-webkit-overflow-scrolling:touch}
+#bar{position:fixed;bottom:0;left:0;right:0;min-height:88px;background:#fff;border-top:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:10px 14px;padding:10px 14px calc(10px + env(safe-area-inset-bottom));z-index:10;flex-wrap:wrap}
+.btn{background:var(--navy);color:#fff;border-radius:14px;padding:12px 22px;font-size:20px;font-weight:700;box-shadow:0 3px 0 #0b1a2e;line-height:1.2}
 .btn:active{transform:translateY(2px);box-shadow:none}
 .btn.gold{background:var(--gold);color:var(--navy);box-shadow:0 3px 0 #9a7418}
 .btn.ghost{background:var(--ice);color:var(--navy);box-shadow:0 3px 0 #c3d0e0}
@@ -53,6 +53,27 @@ button{font-family:inherit;cursor:pointer;border:0}
 .label{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:clamp(16px,2vw,26px);color:var(--muted)}
 .flash{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:background .15s}
 .toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;padding:12px 22px;border-radius:14px;font-size:20px;z-index:20;animation:rise .3s}
+@media (max-width:700px){
+  #top{height:56px;padding:0 10px;gap:8px}#top .tt{font-size:16px}#top .eb{display:none}#top a,#top button{padding:6px 10px;font-size:14px}
+  #stage{top:56px;padding:12px}
+  .btn{padding:10px 14px;font-size:16px;border-radius:12px}
+  .card{padding:18px 16px;border-radius:16px}
+  .opt{padding:12px 14px;gap:12px;font-size:20px}.opt .k{width:40px;height:40px;font-size:20px}.opt .v{font-size:16px;min-width:52px;padding:4px 8px}
+  .tf{padding:12px 14px;font-size:18px;gap:12px}.tf .n{width:38px;height:38px;font-size:18px}.tf .ans{width:70px;height:50px;font-size:24px}.tf .ex{padding-left:50px}
+  .step{font-size:18px}.step .n{width:36px;height:36px;font-size:18px}
+  .ctl{font-size:14px}.ctl input[type=range]{width:90px}
+  .home{grid-template-columns:1fr}
+}
+.score{position:fixed;top:64px;left:0;right:0;height:44px;background:#fff;border-bottom:2px solid #D8E3F0;display:flex;align-items:center;justify-content:center;gap:18px;z-index:9;font-size:18px;color:var(--navy);font-weight:700}
+.score b{background:var(--gold);color:var(--navy);border-radius:999px;padding:2px 14px;font-size:20px}
+.score .lv{background:var(--ice);border-radius:999px;padding:2px 12px;font-weight:700;color:var(--goldd)}
+.score .team{display:flex;align-items:center;gap:6px}
+.score .team button{background:var(--ice);border-radius:8px;padding:4px 10px;font-size:16px;font-weight:700;color:var(--navy)}
+.score .team.r button{background:#FBEDEC;color:var(--brick)}.score .team.b button{background:#E3ECF7;color:#2F6DB5}
+body.hasScore #stage{top:108px}
+@media (max-width:700px){.score{top:56px;height:40px;font-size:15px;gap:10px}.score b{font-size:16px}body.hasScore #stage{top:96px}}
+.rq{background:var(--ice);border-radius:18px;padding:18px 22px;margin-top:14px;font-size:clamp(20px,2.6vw,30px);color:var(--navy)}
+.rq .a{display:none;margin-top:10px;font-weight:900;color:var(--brick)}.rq.open .a{display:block;animation:pop .4s}
 @keyframes pop{0%{transform:scale(.7)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-10px)}40%,80%{transform:translateX(10px)}}
@@ -92,11 +113,13 @@ function shuffle(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.fl
 function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
 const $stage = () => document.getElementById('stage');
 const $bar = () => document.getElementById('bar');
-function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); }
+function setBar(...btns){ const b=$bar(); b.innerHTML=''; btns.forEach(x=>{ if(x) b.appendChild(x); }); requestAnimationFrame(()=>{ if(typeof fitBar==='function') fitBar(); }); }
 function mk(label, cls, fn){ const b=el('button','btn '+(cls||''), label); b.onclick=(e)=>{ ac(); fn(e); }; return b; }
 function soundToggle(){ const b=el('button','btn ghost', '🔊 音效：開'); b.onclick=()=>{ AC.on=!AC.on; b.textContent=AC.on?'🔊 音效：開':'🔇 音效：關'; if(AC.on) ac(); }; return b; }
 function fsBtn(){ const b=el('button','', '全螢幕'); b.onclick=()=>{ const d=document.documentElement; if(!document.fullscreenElement){ (d.requestFullscreen||d.webkitRequestFullscreen).call(d); } else { document.exitFullscreen(); } }; return b; }
-document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } });
+function fitBar(){ const b=document.getElementById('bar'); if(!b) return; document.documentElement.style.setProperty('--barH', b.offsetHeight+'px'); }
+document.addEventListener('DOMContentLoaded', ()=>{ const t=document.getElementById('top'); if(t){ t.appendChild(fsBtn()); } fitBar(); const b=document.getElementById('bar'); if(window.ResizeObserver&&b){ new ResizeObserver(fitBar).observe(b); } window.addEventListener('resize', fitBar); });
+
 </script>
 <script>
 const D = {"n":3,"theme":"耳朵要保養：聽得明白","topic":"耳朵要保養：聽力保健與溝通技巧","ask":{"q":"跟聽不清楚的人說話，要更大聲還是更慢更清楚？","opts":["要更大聲吼","面對面、慢慢說清楚","用寫的就好"],"ans":"面對面、慢慢說清楚","why":"大聲會讓聲音變糊，反而更聽不懂。看得到嘴型，就聽懂一半了。"},"do":{"title":"體驗一次聽不清楚是什麼感覺","steps":["兩人一組，一人用手輕輕摀住兩耳，另一人背對著他快速說一句話，再面對面慢慢說一次，交換角色。","全班一起做「聽力小檢核」：老師唸三題（看電視要開很大聲？在餐廳聽不清楚別人講話？常常請人再說一次？），有的舉手，舉兩題以上的人記下來。","講助聽器的三件事：不用才退化得快、剛戴要從安靜的地方開始習慣、衛生所可以問補助。"],"gear":"不用道具。聽力小檢核老師唸題，長輩舉手；今天的體智能是客家金曲猜歌，和這一段是同一個主題"},"take":{"check":"待會我會問：跟重聽的家人講話，最重要的一件事是什麼？","task":"回家看電視時把音量轉小兩格、打開字幕，試一個禮拜，下週告訴我聽得清不清楚。"},"quiz":[["跟重聽的人講話要用吼的。","錯","面對面、放慢、講清楚比大聲有效，吼反而聽不懂。"],["助聽器戴久了會越戴越聾。","錯","不用才退化得快，也更容易變得不想跟人講話。"],["看電視聽不清楚，打開字幕會有幫助。","對","視覺補足聽覺，比一直調大音量有用。"],["聽不清楚就少跟人講話，比較不會尷尬。","錯","越不講退得越快，聽力退化也和失智有關，要繼續參與。"]],"qa":[["老花眼鏡一直戴會不會越戴越深？","不會。看不清楚硬撐才會眼睛疲勞、頭痛，還容易看錯路跌倒。"],["助聽器很貴，有補助嗎？","有。可以問據點或衛生所，符合資格的長輩有輔具補助可以申請。"]]};
